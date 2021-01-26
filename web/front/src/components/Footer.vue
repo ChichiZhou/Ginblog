@@ -1,5 +1,5 @@
 <template>
-  <v-footer padless color="indigo darken-2">
+  <v-footer app absolute padless color="indigo darken-2">
     <v-row justify="center" no-gutters>
       <v-col class="py-4 text-center white--text" cols="12"
         >{{ new Date().getFullYear() }} - GinBlog

@@ -1,118 +1,124 @@
 <template>
-  <div>
-    <v-app-bar app color="indigo darken-2">
-      <v-avatar class="mx-12" size="40" color="grey">
-        <img src="../assets/logo.png" alt />
-      </v-avatar>
-      <v-container class="py-0 fill-height justify-center">
-        <v-btn text color="white" @click="$router.push('/')">首页</v-btn>
-        <v-btn
-          v-for="item in cateList"
-          :key="item.id"
-          text
-          color="white"
-          @click="gotoCate(item.id)"
-        >{{item.name}}</v-btn>
-      </v-container>
+  <v-app-bar app mobile-break-point="1264" color="indigo darken-2">
+    <v-avatar class="mx-12 hidden-sm-and-down" size="40" color="grey">
+      <img src="../assets/logo.png" alt />
+    </v-avatar>
 
-      <v-spacer></v-spacer>
+    <v-container class="py-0 fill-height justify-center">
+      <v-btn text color="white" @click="$router.push('/')">首页</v-btn>
+      <v-btn
+        v-for="item in cateList"
+        :key="item.id"
+        text
+        color="white"
+        @click="gotoCate(item.id)"
+        >{{ item.name }}</v-btn
+      >
+    </v-container>
 
-      <v-responsive max-width="260" class="mr-5" color="white">
-        <v-text-field
-          dense
-          flat
-          hide-details
-          solo-inverted
-          rounded
-          placeholder="请输入文章标题查找"
-          dark
-          append-icon="mdi-text-search"
-          v-model="searchName"
-          @change="searchTitle(searchName)"
-        ></v-text-field>
-      </v-responsive>
+    <v-spacer></v-spacer>
 
-      <v-dialog max-width="800">
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn v-if="!headers.username" text dark v-bind="attrs" v-on="on">请登录</v-btn>
+    <v-responsive max-width="260" class="mr-5 hidden-sm-and-down" color="white">
+      <v-text-field
+        dense
+        flat
+        hide-details
+        solo-inverted
+        rounded
+        placeholder="请输入文章标题查找"
+        dark
+        append-icon="mdi-text-search"
+        v-model="searchName"
+        @change="searchTitle(searchName)"
+      ></v-text-field>
+    </v-responsive>
 
-          <v-btn v-if="headers.username" text dark>欢迎你{{headers.username}}</v-btn>
-          <v-btn v-if="headers.username" text dark @click="loginout">退出</v-btn>
-        </template>
+    <v-dialog max-width="800">
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn v-if="!headers.username" text dark v-bind="attrs" v-on="on"
+          >请登录</v-btn
+        >
 
-        <template v-slot:default="dialog">
-          <v-card>
-            <v-toolbar color="indigo darken-2" dark>请登录</v-toolbar>
-            <v-form ref="loginFormRef" v-model="valid">
-              <v-card-text class="mt-5">
-                <v-text-field
-                  v-model="formdata.username"
-                  hint="至少4个字符"
-                  counter="12"
-                  :rules="nameRules"
-                  label="请输入用户名"
-                ></v-text-field>
-                <v-text-field
-                  v-model="formdata.password"
-                  hint="至少6个字符"
-                  counter="20"
-                  :rules="passwordRules"
-                  label="请输入密码"
-                  type="password"
-                ></v-text-field>
-              </v-card-text>
-              <v-card-actions class="justify-end">
-                <v-btn text @click="login">确定</v-btn>
-                <v-btn text @click="dialog.value = false">取消</v-btn>
-              </v-card-actions>
-            </v-form>
-          </v-card>
-        </template>
-      </v-dialog>
+        <v-btn v-if="headers.username" text dark
+          >欢迎你{{ headers.username }}</v-btn
+        >
+        <v-btn v-if="headers.username" text dark @click="loginout">退出</v-btn>
+      </template>
 
-      <v-dialog max-width="800">
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn v-if="!headers.username" text dark v-bind="attrs" v-on="on">注册</v-btn>
-        </template>
-        <template v-slot:default="dialog">
-          <v-form ref="registerformRef" v-model="registerformvalid">
-            <v-card>
-              <v-toolbar color="indigo darken-2" dark>欢迎注册</v-toolbar>
-              <v-card-text class="mt-5">
-                <v-text-field
-                  v-model="formdata.username"
-                  hint="至少4个字符"
-                  counter="12"
-                  :rules="nameRules"
-                  label="请输入用户名"
-                ></v-text-field>
-                <v-text-field
-                  v-model="formdata.password"
-                  :rules="passwordRules"
-                  hint="至少6个字符"
-                  counter="20"
-                  label="请输入密码"
-                  type="password"
-                ></v-text-field>
-                <v-text-field
-                  v-model="checkPassword"
-                  :rules="checkPasswordRules"
-                  hint="至少6个字符"
-                  counter="20"
-                  label="请确认密码"
-                  type="password"
-                ></v-text-field>
-              </v-card-text>
-              <v-card-actions class="justify-end">
-                <v-btn text @click="registerUser">确定</v-btn>
-                <v-btn text @click="dialog.value = false">取消</v-btn>
-              </v-card-actions>
-            </v-card>
+      <template v-slot:default="dialog">
+        <v-card>
+          <v-toolbar color="indigo darken-2" dark>请登录</v-toolbar>
+          <v-form ref="loginFormRef" v-model="valid">
+            <v-card-text class="mt-5">
+              <v-text-field
+                v-model="formdata.username"
+                hint="至少4个字符"
+                counter="12"
+                :rules="nameRules"
+                label="请输入用户名"
+              ></v-text-field>
+              <v-text-field
+                v-model="formdata.password"
+                hint="至少6个字符"
+                counter="20"
+                :rules="passwordRules"
+                label="请输入密码"
+                type="password"
+              ></v-text-field>
+            </v-card-text>
+            <v-card-actions class="justify-end">
+              <v-btn text @click="login">确定</v-btn>
+              <v-btn text @click="dialog.value = false">取消</v-btn>
+            </v-card-actions>
           </v-form>
-        </template>
-      </v-dialog>
-    </v-app-bar>
-  </div>
+        </v-card>
+      </template>
+    </v-dialog>
+
+    <v-dialog max-width="800">
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn v-if="!headers.username" text dark v-bind="attrs" v-on="on"
+          >注册</v-btn
+        >
+      </template>
+      <template v-slot:default="dialog">
+        <v-form ref="registerformRef" v-model="registerformvalid">
+          <v-card>
+            <v-toolbar color="indigo darken-2" dark>欢迎注册</v-toolbar>
+            <v-card-text class="mt-5">
+              <v-text-field
+                v-model="formdata.username"
+                hint="至少4个字符"
+                counter="12"
+                :rules="nameRules"
+                label="请输入用户名"
+              ></v-text-field>
+              <v-text-field
+                v-model="formdata.password"
+                :rules="passwordRules"
+                hint="至少6个字符"
+                counter="20"
+                label="请输入密码"
+                type="password"
+              ></v-text-field>
+              <v-text-field
+                v-model="checkPassword"
+                :rules="checkPasswordRules"
+                hint="至少6个字符"
+                counter="20"
+                label="请确认密码"
+                type="password"
+              ></v-text-field>
+            </v-card-text>
+            <v-card-actions class="justify-end">
+              <v-btn text @click="registerUser">确定</v-btn>
+              <v-btn text @click="dialog.value = false">取消</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-form>
+      </template>
+    </v-dialog>
+  </v-app-bar>
 </template>
 
 <script>

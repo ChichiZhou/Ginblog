@@ -69,7 +69,7 @@ export default {
         cid: undefined,
         desc: '',
         content: '',
-        img: '',
+        img: ''
       },
       Catelist: [],
       upUrl: Url + 'upload',
@@ -80,11 +80,11 @@ export default {
         cid: [{ required: true, message: '请选择文章分类', trigger: 'change' }],
         desc: [
           { required: true, message: '请输入文章描述', trigger: 'blur' },
-          { max: 120, message: '描述最多可写120个字符', trigger: 'change' },
+          { max: 120, message: '描述最多可写120个字符', trigger: 'change' }
         ],
         img: [{ required: true, message: '请选择文章缩略图', trigger: 'blur' }],
-        content: [{ required: true, message: '请输入文章内容', trigger: 'blur' }],
-      },
+        content: [{ required: true, message: '请输入文章内容', trigger: 'blur' }]
+      }
     }
   },
   created() {
@@ -138,7 +138,7 @@ export default {
     },
     // 提交&&更新文章
     artOk(id) {
-      this.$refs.artInfoRef.validate(async (valid) => {
+      this.$refs.artInfoRef.validate(async valid => {
         if (!valid) return this.$message.error('参数验证未通过，请按要求录入文章内容')
         if (id === 0) {
           const { data: res } = await this.$http.post('article/add', this.artInfo)
@@ -157,7 +157,7 @@ export default {
 
     addCancel() {
       this.$refs.artInfoRef.resetFields()
-    },
-  },
+    }
+  }
 }
 </script>

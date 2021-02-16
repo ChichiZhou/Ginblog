@@ -12,3 +12,5 @@
 *.out
 /log/log*.log
 config/config.ini
+static/front/.DS_Store
+static/front/static/.DS_Store
